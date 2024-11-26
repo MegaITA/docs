@@ -2,10 +2,10 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "MegaWorks Documentation",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/logo.png",
+    "light": "/logo/logo.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/logo.png",
   "colors": {
     "primary": "#0095cf",
     "light": "#0095cf",
@@ -75,7 +75,9 @@
           "group": "Adapters",
           "icon": "plug",
           "pages": [
-            "scripts/doctorjob/adapters/adapters"
+            "scripts/doctorjob/adapters/adapters",
+            "scripts/doctorjob/adapters/client",
+            "scripts/doctorjob/adapters/server"
           ]
         },
         {
