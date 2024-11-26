@@ -1,0 +1,58 @@
+---
+title: 'Companies API'
+---
+<Info>
+If you need to access some methods/properties that are not available yet, contact us via Discord ticket.
+</Info>
+
+You can use our Companies API wherever you want to fully integrate the script with your preexisting systems. You can basically do anything you want.
+
+## How to import and use
+
+```lua
+CompaniesManager = exports['mega_companies']:api()
+
+CompaniesManager.getMoney('testJob') -- 123.00
+CompaniesManager.addMoney('testJob', 100)
+
+-- and so on...
+```
+
+## Company Class
+
+```
+id: String <- refers to the id in the table and coincides with the ingame jobname
+name: String <- display name of the company
+wallet: Number <- wallet of the company, contains its money
+coords: Table <- xyz coordinates of the company's blip
+checkout: Boolean <- whether or not to enable the checkout function (issuing bills...)
+owner: Number <- Company owner CharID
+employees: Table <- Table containing company's employees [ [ CharID, FullName, Grade ], ... ]
+price: Number|Null <- If null the company is not on sale, otherwise it will be put up for sale at the specified price
+blipSprite: Number <- The sprite id of the blip shown on the map
+ranks: Table <- Company's ranks, a rank is formed like this: { rank: 0, name: 'Employee', salary: 1.24, canManage: false }
+```
+
+## API Methods
+
+```lua
+addMoney(id, amount) -- adds the money to the specified company
+removeMoney(id, amount) -- removes money from the specificed company
+setMoney(id, amohnt) -- sets the company's wallet to the specified amount
+
+getCompany(id) -- gets the specified company
+
+setEmployeeRank(id, charid, rank) -- sets the specified rank to the employee								
+addEmployee(id, emp) -- adds an employee, emp must follow the employee format { charid, fullname, rank} 
+										 -- for example: { 123, 'John Doe', 0 }
+removeEmployee(id, charid) -- removes an employee with the specified charid
+getEmployees(id) -- gets the company's employees
+setEmployees(id, emps) -- sets the company's employees
+
+setName(id, name) -- sets the company displayname
+
+getRanks(id) -- gets the company's ranks
+setRanks(id, ranks) -- sets the company's ranks
+
+updateCompany(id) -- enforces NUI update, highly recommended if you change ranks, money, employees etc...
+```

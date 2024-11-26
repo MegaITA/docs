@@ -1,0 +1,43 @@
+---
+title: "Client-Side Adapter"
+icon: "user"
+---
+
+## Event Handling
+
+The client-side adatper is fairly simple, it will listen to **revive and respawn** events from the framework *(if there are any)*. Events can also be customized to work with other scripts, you can freely edit and tinker with them, it won't affect noraml functionality.
+
+Example for VORP:
+```lua
+-- VORPCore Adapter --
+
+if Config.framework == 'vorp' then
+    print('>> VORP Adapter Enabled')
+
+    RegisterNetEvent('vorp:SelectedCharacter')
+    AddEventHandler('vorp:SelectedCharacter', function()
+        TriggerServerEvent('mega_doctorjob:loadPlayer')
+    end)
+    
+    if Config.removeDiseaseOnRevive then
+        RegisterNetEvent('vorp:resurrectPlayer')
+        AddEventHandler('vorp:resurrectPlayer', function ()
+            TriggerEvent('mega_doctorjob:healAll', true)
+        end)
+
+        RegisterNetEvent('vorp_core:respawnPlayer')
+        AddEventHandler('vorp_core:respawnPlayer', function ()
+            TriggerEvent('mega_doctorjob:healAll', true)
+        end)
+
+        RegisterNetEvent('vorp:PlayerForceRespawn')
+        AddEventHandler('vorp:PlayerForceRespawn', function ()
+            TriggerEvent('mega_doctorjob:healAll', true)
+        end)
+    end
+end
+
+-- END VorpCore Adapter --
+```
+
+As you can see, it simply listens for resurrect, respawn or revive events in order to remove all the diseases from a player. Again, you can edit this behavior as you prefer.

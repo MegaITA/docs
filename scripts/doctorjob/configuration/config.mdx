@@ -1,0 +1,58 @@
+---
+title: "Config.lua"
+icon: "gear"
+---
+
+Configuration properties:
+- `printLogs`: enable or disable logs in server console
+- `adminGroups`: table containing VORP groups that will have the admin powers for the script
+- `language`: Translations table
+- `medicalBeds`: table containing a list of prop hashes to be used as medical beds for visiting patients
+- `jobs`: jobs which will be able to visit patients
+- `bandanaEvent`: the event to listen for when a player puts up or down the bandana, useful for cholera and malaria. By default it is set to work with syn_bandana script.
+
+## Hospitals
+A list of hospitals used for the notes system, when you add a new one you must create a new row in the database, use the default one as an example.
+
+An hospital object contains the following settings:
+- `showBlip`: show the blip on the minimap or not
+- `blipSprite`: hash of the blip's sprite
+- `coords`: vector3 coordinates of the center of the hospital, this is used for a distance check to know in which hospital the notes must be read and written.
+- `radius`: activation radius for the coords check
+
+## Clothes Temperatures
+This part of the config is for the temperature calculations used by the cold disease. These values gets added to the local ambient temperature to calculate the actual body temperature.
+
+```
+[clothCategoryHash] = {
+	temperature: xx.xx
+}
+```
+
+- `temperature`: How many degrees add to the local temperature if wearing any clothing item that belongs to the category defined.
+
+## Damage Types
+Don't touch unless you know what you're doing
+
+Those are *damage states* for diseases, you can add your own if you need to. Also, take a look in *config.js* for the translation in the UI, names must match. 
+
+They are used to add some steps to heal wounds, originally only for bleeding and for customising healing animations and progress, but you can have fun creating more.
+
+A damage type object contains the following settings:
+
+- `damageTypeId`: a string representing the id of the damage type
+```
+[damageTypeID] = {
+  next = 'nextDamageTypeID' or nil,
+  lang = 'Progress Text',
+  animationDict = 'animationDict',
+  animation = 'animationName',
+  duration = animation duration in milliseconds
+}
+```
+- `next`: the damageTypeID of the next step. For example when healing a bleeding wound you first remove the projectile then you apply the stitches, so in that case the next value matches the damageTypeID of the following step. If the damage gets healed in just one step you can set this to nil.
+
+## Bone IDs to Animation
+This part is currently unused, still researching a method to sync some locomotion types across MP peds.
+
+

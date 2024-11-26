@@ -1,0 +1,45 @@
+---
+title: 'Items.lua'
+icon: 'box'
+---
+This is where you can create your own healing items, note that apart from bleeding and broken bones there's no other way of healing other diseases through the medical UI (by default). Healing items can be configured to heal any disease.
+
+## Medicine Items
+Those items are meant to be accessible to anyone, to heal wounds or diseases.
+
+Properties:
+- `itemID`: the id of the item, must be equal to the one you create in the items table in the database
+- `healProbability`: this property contains all the diseases the item can heal along with the probability of success. Can work with as many diseases as you want.
+- `cureDuration`: time after the cure will stop working and the symptoms will restart. It is a milliseconds value, if you want it to be permanent you can set its value to -1
+- `applyDuration`: time it needs to apply the medication
+- `healthAmount`: the amount of health it will give to the player after using the item.
+- `animationDict`: the dict of the animation you want to use, if want to use a scenario set this to nil
+- `animation`: the name of the animation you want to use, if want to use a scenario set this to nil
+- `scenario`: the scenario hash that you want to use
+- `allowedJobs`: a list of jobs that are allowed to use this item, set this to nil or just delete it to make it usable for anyone.
+
+```
+    [itemID] = {
+        healProbability = {
+            [diseaseID] = heal probability (1.0 = 100%, 0.0 = 0%),
+            [diseaseID] = ...
+           	...
+        },
+        cureDuration = 60000,
+        applyDuration = 10000,
+        healthAmount = 200.0,
+        language = {
+            cureExpired = "The bandage has fallen, you start bleeding again. Put on a bandage and visit a doctor.",
+            applying = "Applying bandage...",
+            applied = "Bandage applied, you stopped bleeding.",
+        },
+        animationDict = nil,
+        animation = nil,
+        scenario = 'WORLD_HUMAN_CROUCH_INSPECT',
+        allowedJobs = nil or { ... }
+    },
+}
+```
+
+## Revive Items
+Those items are used to revive a player which is currently dead. The configuration parameters are the same as for the medicine items.

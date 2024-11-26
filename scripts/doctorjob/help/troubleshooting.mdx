@@ -1,0 +1,27 @@
+---
+title: "Troubleshooting"
+icon: "bug"
+---
+
+Most common issues and how to solve them. Before scrolling through this guide there are a few things to ALWAYS check before.
+
+- Make sure you installed all the dependencies and started them before mega_doctorjob. You can find the list in the Tebex Store or in the Discord channel dedicated to the script.
+
+### Cannot open the Medical UI
+- If you restarted the game while online:
+	- If you're on a dev environment you can use /dload, otherwise do a full restart instead.
+- If you get an error in console like `attempt to index a nil value`:
+	- The player you're inspecting doesn't have the data loaded. It could be because you have restarted the script while online.
+  - Make sure to have all the configured hospitals in the database too.
+
+### Cannot use `/inspect` command
+- The player must be dead.
+- Check for inspect jobs permissions, they are different from the medic ones.
+
+### For RSG Users
+RSG-Core has an on/off duty system.
+- You can ask for an edited file on my discord that ignores the on/off duty for job checking.
+- You can set in the RSG Config the on-duty state by default when a player joins.
+ 
+### Other
+- Make sure to select the right adapter in the config.

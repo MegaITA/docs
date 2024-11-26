@@ -1,0 +1,54 @@
+---
+title: 'Diseases.lua'
+description: 'Configuration parameters for diseases.lua file'
+icon: 'virus'
+---
+This part of the configuration contains all the configuration data needed for the diseases to work. If you want to create your own disease you have to add your own in the file and put there all the properties that you need. Try to follow already present variable names to make it less confusing.
+
+Those properties are not standard across all the diseases, every disease has its own parameters which can be tweaked and documented independently. I will just document the ones which the understanding could be not so immediate.
+
+## Cold
+
+Let's take for example some of the "cold" disease, some of its properties are in other diseases too:
+- `name`: **REQUIRED**, this is the name the module will be registered with in the systems
+- `displayName`: **REQUIRED** The friendly name, must be readable since it will end up in the UI eventually
+- `healthLossPerTick`: Amount of health is loss per tick (of the effect)
+- `tickRate`: Milliseconds delay between one tick and another of the main module thread, generally used for checking positions, temperature and so on...
+- `effectRate`: This is the tick rate of the effect, delay between each loop of the effect thread. Basically how often effects are applied. (See healthLossPerTick)
+- `autoHealTime`: The amount of time it takes to heal automatically, if you want this to be healed only by a medicine set it to -1
+- `maxColdnessLevel`: This is specific for this disease, basically it sets the maximum allowed value of "coldness".
+- `coldTemperature`: Temperature which is considered to be cold
+- `temperatureRate`: Coefficient for the coldness level increment
+- `waterRate`: Coefficient for the coldness level increment
+- `symptoms`: Non visible or roleplayable symptoms that a doctor can still see, shown in the UI. For example by misuring patient's temperature or heart rate. They're mandatory for the UI to work. You can customise them as you like, those are just meant to be an hint for the doctor to administer the right medicine to the patient, knowing how each disease affects heart rate or body temperature. For example the common cold will never reach 40C degrees, it is probably malaria or cholera.
+
+
+### What is coldness
+
+The way you can get cold works that way: basically a player starts with coldness set to 0. Whenever a "cold factor" is present, for example being too cold or in water, this variable gets incremented by `1 * temperatureRate` or `1 * waterRate` if it's in a cold temperature or inside water. It gets then decremented by 1 every tick the player is not inside any "cold factor". 
+
+Example A: 
+- Player is in water. 
+- WaterRate is set to 2.
+- Coldness is 0
+- Coldness gets incremented by `2` each tick
+- Coldness is 2
+
+Example B:
+- Player is in water and in cold temperature.
+- WaterRate is set to 2 and temperatureRate is set to 1.
+- Coldness is 0
+- Coldness gets incremente by `2` for being in water and `1` for being in a cold temperature.
+- Coldness is 3
+
+Example C:
+- Player is in good temperature and not in water.
+- Coldness is already at 10.
+- Coldness gets decreased by 1
+- Coldness is 9.
+
+## Malaria/Cholera
+
+Infection level works the same as Coldness, take a look at the comments in the config or just scroll up to see the explanation in this page.
+
+- `infectionZonesProbability`: This is a list of zones where you could get infected, for each tick you're inside one of these zones you will get an infection point. Each zone has a **coords** value which is the center of it, a **radius** which is how extended it is and the amount of infection points you get standing there without wearing a bandana.

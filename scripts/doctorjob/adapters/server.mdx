@@ -1,0 +1,42 @@
+---
+title: "Server-Side Adapter"
+icon: "server"
+---
+
+## Methods
+You'll need to **define ALL** of these to expect the script to work. Also, make sure the returned values are what the script expects them to be.
+
+`ResurrectPlayer(targetID)`
+- targetID (number) dynamic ID of RedM
+
+`GetCharJob(targetID)`
+- targetID (number) dynamic ID of RedM
+- **Returns**: a *string* containing the job name
+
+`GetCharIdentifier(targetID)`
+- targetID (number) dynamic ID of RedM
+- **Returns**: a *number* containing the char identifier
+
+`GetCharFirstname(targetID)`
+- targetID (number) dynamic ID of RedM
+- **Returns**: a *string* containing the char firstname
+
+`GetCharLastname(targetID)`
+- targetID (number) dynamic ID of RedM
+- **Returns**: a *string* containing the char lastname
+
+`GetCharMoney(targetID)`
+- targetID (number) dynamic ID of RedM
+- **Returns**: a *number* containing the amount of the char's money
+
+`RemoveCurrency(targetID, currency, amount)`
+- targetID (number) dynamic ID of RedM
+	currency (number) ID of the currency to remove (ex. VORP has 0 for money, 1 for gold, you can ignore it if it's not needed in your framework)
+	amount (number) the amount of money to be taken
+
+`GetCharGroup(targetID)`
+- targetID (number) dynamic ID of RedM
+- **Returns**: a *string* containing the char group (ex. VORP could have 'admin', 'user'...). It's needed to identify whether the user is an admin or not.
+
+`RegisterUsableItems(targetID)`
+- Take a look at the VORP adapter to understand how it works. Basically loads all the items from the respective config files and registers them to the framework. The callback code must work identically as the one provided in the VORP adapter file.

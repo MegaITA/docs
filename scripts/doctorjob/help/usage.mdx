@@ -1,0 +1,37 @@
+---
+title: "In-game usage"
+icon: "gamepad"
+---
+In this section I will explain how to use the script in game by a player and admin standpoint.
+
+## Player (Doctor)
+A player with the right job will be able to access the Medical UI, along with some other restricted items, specified by the `allowedJobs` table in the [items configuration file](/scripts/doctorjob/configuration/items).
+
+### Medical UI
+The medical UI can be accessed in multiple ways:
+- **Player Targeting:** By default in RedM (and RDR2) it's possible to target other players by holding the right mouse button. By doing so you'll have access to a prompt menu in the bottom right corner. If you're close enough (defined in the script's config) you'll be able to see the visit prompt.
+- **Medical Bed:** By being close enough to a configured medical bed you'll be able to access the visit menu prompt.
+- **(unofficial) /visit command:** It's possible to open the Medical UI through a command by calling the server event 'mega_doctorjob:visit' and passing the target's server id.
+  Example with NPlayerSelector integration:
+  ```lua
+  RegisterCommand("visit", function(source, args, rawCommand)
+      NPlayerSelector:onPlayerSelected(function (data)
+          TriggerServerEvent('mega_doctorjob:visit', data.id)       
+          NPlayerSelector:deactivate()
+      end)
+      NPlayerSelector:setRange(1) -- <- set this to the desired range
+      NPlayerSelector:activate()   
+  end)
+  ```
+  
+## Inspect UI
+The inspect UI is a limited version of the Medical UI, no healing can be done and no patient notes can be seen or created. It is meant for police RP, so that they can investigate how a player died and play accordingly.
+
+It can be opened via the /inspect command.
+## Admin Commands
+- /healDisease \<diseaseId> \<id>
+	It allows you to heal other players' diseases.
+- /giveDisease \<diseaseId> \<id>
+	It allows you to give other players' diseases.
+- /dload
+	(Dev only) Reload char data without quitting game. I strongly advise not to use this in a production environment. It could be useful if you restarted the script while in-game.

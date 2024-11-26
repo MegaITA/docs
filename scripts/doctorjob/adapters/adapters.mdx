@@ -1,0 +1,21 @@
+---
+title: "Getting Started"
+icon: "info"
+---
+
+<Warning>
+This section is for advanced users. If you're not strictly familiar with coding and the framework you're using, refrain from writing an adapter. Also, support won't be given to any bug that could be introduced by using an adapter that you wrote or that's not published by Mega.    
+</Warning>
+
+
+## What is an "Adapter"?
+An adapter is a file that contains functions which basically act as a link to your framework functions. Since I cannot make all the server files editable, due to the licensing, I made editable server-side and client-side files that allow you to incorporate your framework functions without editing the licensed code.
+
+Imagine it as follows:
+
+Encrypted Server Code <Icon icon="arrow-right-arrow-left" iconType="solid" /> FrameworkAdapter <Icon icon="arrow-right-arrow-left" iconType="solid" /> Framework
+
+The script's code will not need to worry about which framework you're using, because it's using intermediary functions defined in the framework adapter. Of course, you'll need to define those by yourself, if the framework is not already supported.
+
+## Client and Server side Adapters
+There are two adapter folders, one in the client folder and one in the server folder. You need to create an adapter file in both folders in order to completely make the script compatible with the framework you're running.

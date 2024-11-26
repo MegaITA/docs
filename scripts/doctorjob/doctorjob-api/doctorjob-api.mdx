@@ -1,0 +1,54 @@
+---
+title: 'Doctorjob API'
+---
+
+This is the place you'll find all the info about Doctorjob API's. At the current state it's only supported a client side version of the API, eventually in the future if requested I'll make a serverside version, even though still some things will need to be done on the client side.
+
+## Client API
+### Usage
+```lua
+local clientAPI = exports['mega_doctorjob'].ClientAPI()
+```
+
+### Methods
+
+- `getBodyExternalTemperature(ped, localTemperature)`
+	**Parameters:** PedID and localTemperature in degrees.
+	**Returns:** Ped temperature according to what is wearing and external temperature.
+  **Example:**
+	```lua
+    local coords = GetEntityCoords(PlayerPedId())
+    ShouldUseMetricTemperature()
+    local localTemperature = GetTemperatureAtCoords(coords.x, coords.y, coords.z)
+    local temperature = clientAPI.getBodyExternalTemperature(PlayerPedId(), localTemperature)
+	```
+
+- `getDiseases()`
+	 **Returns:** table containing all ped diseases along with their data (even the non-active ones)
+
+- `getDisease(diseaseID)`
+	**Parameters:** diseaseID (for example: bleeding, brokenBone...)
+	**Returns:** disease table
+
+- `healDisease(diseaseID)`
+	Completely heals the specified disease to the player
+	**Parameters:** diseaseID (for example: bleeding, brokenBone...)
+
+- `giveDisease(diseaseID)`
+	Gives the specified disease to the player
+	**Parameters:** diseaseID (for example: bleeding, brokenBone...)
+
+### Classes
+
+#### Disease
+**Properties:**
+- `data`: table containing all the data of the disease, can differ between different diseases but generally it is composed like this:
+	- `active`: boolean, whether the disease is active or not.
+	- `paused`: boolean, whether the disease is paused or not. When it's paused the symptoms will not show completely, used for bandage and temporary medicines.
+	- Other stuff may vary between different diseases (examples are: `bone`, `damageType` and so on). Feel free, if you're creating your own disease, to use it as a state storage for the disease. Remember that `data` is also persistent, it gets saved to the DB and loaded on script's start.
+
+- `_data`: proxy table used for automatic syncing of data between client and server, use this when you have to set a new state or data value and you want it synced with the server (***generally always***). However it cannot be converted to JSON or iterated, that's why `data` is still accessible.
+
+- `config`: disease's disease.lua config that gets loaded when the disease is initialized, useful to access disease configuration.
+
+- `name`: same as diseaseID, used from the DiseaseManager for it's initialization.

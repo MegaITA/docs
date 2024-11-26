@@ -1,0 +1,87 @@
+---
+title: 'Disease Script'
+---
+
+The disease class is the base class that will be then extended with your methods in order to give it the functionality you want.
+
+**Disease class methods:**
+
+- `Disease:setActive(active)`
+	**active**: boolean (true if active, false if not active)
+  *It will set the disease as active, it will just mutate it's internal data in order to set it as active, all the behavior must be defined in the derived class you'll see later.*
+
+- `Disease:getActive()`
+	*It will return the activity status of the disease*
+
+- `Disease:getData()`
+	*It will return the data object of the disease, generally you won't need to use this*
+
+- `Disease:setData(data)`
+	*It will set the data of the disease, generally you won't need to use this and it's recommended not to use it since it is used for internal code.*
+
+**Disease class attributes:**
+*The attributes marked as read only are strongly recommended to not be changed to avoid unexpected behavior. Only do it if you REALLY know what you're doing.*
+- `name` (read only)
+	*Disease display name, the one that gets shown in the UI. It gets its value from the config passed in the constructor.*
+
+- `config` (read only)
+	*Contains all the disease config information, useful to get parameters to be used by the disease later.*
+
+- `_data`
+	*The data object contains all the persistent disease data, since it will be saved in the database. You can store there everything you need. Do not abuse it and do not store there temporary data. Also, try to use it as little as possible since the data will be synced between the client and the server each time it will be updated, too much data could degrade performance significantly.*
+  
+### Disease module definition
+
+As an example, we will call our disease "bleeding".
+
+All the module's code is surrounded by an if statement, this will ensure that the module will only be activated if the config is present in the aforementioned config file.
+
+So the module will initially look like this
+```lua
+if DiseasesConfig['bleeding'] then
+    -- disease methods definition
+    ...
+end
+```
+
+Then, you'll need to define the module "instance" that will be loaded by the script's system in order to run it. You define a disease like this: 
+```lua 
+	local bleeding = Disease:new(DiseasesConfig['bleeding'])
+```
+
+This will create a new disease instance, you need to pass to its constructor the configuration parameters held in the configuration file.
+
+The disease module is composed by four methods, which all are **required** and you'll have to declare them correctly. You declare a method under the module like this:
+
+```lua
+function Bleeding:init() 
+	--- initialization code
+end
+```
+The init function will be the first function called by the script's module system once started, you'll generally initialize temporary variables as well as starting your check loop (if needed).
+
+```lua
+function Bleeding:startEffect() 
+	--- effect code
+end
+```
+
+This piece of code will be called when the player contracts the disease. It will mainly be responsible of starting animations, effects and such. It's up to you to use it as you wish but you can freely copy most of its functions from the already implemented diseases.
+
+```lua
+function Bleeding:stopEffect() 
+	--- stop effect code
+end
+```
+
+This one is pretty straightforward, just the opposite of startEffect.
+
+```lua
+function Bleeding:setPaused(paused) 
+	--- pause disease code
+end
+```
+
+Pay attention since this could be a little confusing, it was added as an update to the system since some customers wanted to make diseases curable only by the medical menu and leave items to cure it temporarily. It basically sets a variable called `paused` inside the `_data` object. It is a flag that can be used in different ways based on how you intend to write the script, mainly it is used to pause the symptoms issued by the effect function without curing the disease.
+
+At the end of the file there's a line that simply registers the disease module to the DiseasesManager system, it's requried to do so at the end of the file in order to make the disease module work.
