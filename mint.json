@@ -102,6 +102,22 @@
       ]
     },
     {
+      "group": "Mega Entities",
+      "pages": [
+        {
+          "group": "Configuration",
+          "pages": [
+            "/scripts/entities/configuration/groups",
+            "/scripts/entities/configuration/infected",
+            "/scripts/entities/configuration/hordes",
+            "/scripts/entities/configuration/safezones",
+            "/scripts/entities/configuration/worldwide",
+            "/scripts/entities/configuration/zones"
+          ]
+        }
+      ]
+    },
+    {
       "group": "Dev Libraries",
       "pages": [
         "libraries/Work in progress"

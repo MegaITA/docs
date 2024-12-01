@@ -1,0 +1,31 @@
+---
+title: "Groups.lua"
+icon: "user-group"
+---
+
+## Entity Groups
+An entity group is basically a *tag* you can apply on entities. It will be used in this file to determine the relationships between entity groups. Making them aggressive or peaceful towards other groups.
+
+You can also use default game groups which can be found (here)[https://github.com/femga/rdr3_discoveries/tree/master/AI/RELATIONSHIP#list-of-default-relationship-groups].
+
+## Relationship Levels
+Groups can have relationships between them, telling the game how their AI should behave when encountering other entities.
+
+A list of relationship groups can be found (here)[https://github.com/femga/rdr3_discoveries/tree/master/AI/RELATIONSHIP#list-of-relation-types].
+
+## Example of configuration
+Let's say we want to add a new group called `militia` which will attack another group named `infected`. Also, `infected` will attack `militia`.
+
+```lua
+Config.Groups = {
+    ["infected"] = {
+        [`PLAYER`] = 6,
+        [`REL_WILD_ANIMAL_PREDATOR`] = 1,
+        ["militia"] = 6 -- define new relationship level with the `militia` group.
+    },
+    -- new militia group
+    ["militia"] = {
+        ["infected"] = 6, -- define relationship level with `infected` group.
+    }
+}
+```

@@ -1,0 +1,65 @@
+---
+title: "Worldwide.lua"
+icon: "globe"
+---
+
+# Worldwide Systems
+
+This section is for settings that affect the worldwide spawning system of mega_entities.
+
+The worldwide system has different strategies to populate the world with entities.
+
+## Replacement System
+<Warning>
+    This system is still active in the script for those who still want to tinker with it, however it's advised **not** to use it since it causes Ped Pool crashes with OneSync. It's suggested to use Zones or WorldGrid instead.
+</Warning>
+
+### Configuration parameters
+
+#### Enabled
+This option allows you to disable / enable it.
+
+#### replaceWith
+This option allows you to specify how peds will be replaced with mega_entities and how likely it is.
+Example:
+```lua
+replaceWith = {
+    ['example1'] = 0.5
+}
+```
+There will be 50% probability that a ped will be replaced with `example1` entity.
+
+#### inVehicle
+Allows replacement of peds which are on wagons.
+#### onHorse
+Allows replacement of peds which are on horses.
+#### debug
+Activates / deactivates replacement system debug logs.
+
+## Worldgrid System
+The worldgrid system is one of the most advanced systems to keep your server populated with entities without having to spawn hundreds of entities all over the world.
+
+### How it works
+The worldgrid system divides the world into chunks which are pupulated only when players get into them. They also serve the opposite purpose, once a chunk has no players all entities inside will be removed to keep the ped pool as empty as possible.
+
+### Configuration parameters
+
+#### spawnCooldown
+Entitis will be re-spawned after the amount of time specified in the cooldown timer. This can happen when they get killed or removed to avoid too frequent spawn/despawn.
+
+#### chunkUpdateRate
+How frequently chunks will be updated, affects the performance significantly. Unless you know what you're really doing don't change this setting.
+
+#### maxChunkPop
+Max number of entities inside a chunk.
+
+#### chunkPopulation
+Table defining which and the probability of entities that will be spawned inside a chunk.
+Example:
+```lua
+chunkPopulation = {
+    -- ['entityType'] = probability [0.0, 1.0]
+    ['infect1'] = 0.9, -- 90% probability that it will spawn
+    ['gunslinger'] = 0.1
+},
+```

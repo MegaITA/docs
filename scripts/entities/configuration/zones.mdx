@@ -1,0 +1,25 @@
+---
+title: "Zones.lua"
+icon: "map-location-dot"
+---
+
+# Zones
+The zones system will allow you to define a spawn zone in which entities will be spawn when a player gets near them.
+
+## Zones Configuration
+
+### Example Zone
+```lua
+['oil_fields'] = {
+    coords = vector3(480.8108520507813, 645.7635498046875, 115.76087951660156),
+    radius = 60.0,
+    -- IMPORTANT, it must be the total sum of the entities in the population
+    targetPop = 41,
+    population = {
+        ['infect1'] = 30,
+        ['gunslinger'] = 11,
+    },
+    -- Cooldown for (re)spawn in seconds
+    spawnCooldown = 1800
+},
+```

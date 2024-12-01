@@ -1,0 +1,26 @@
+---
+title: "Hordes.lua"
+icon: "user-group"
+---
+
+Hordes are a way to spawn entities in a group, with an unique command. Hordes can be composed by various kinds of entities. Hordes can only be spawned through command, these are useful for events.
+
+## Horde commands
+
+- `/spawnHorde <hordeType> <radius m> <offset m> <target ID>`
+<br/>Spawns an horde for the specified target. By an offset and radius.
+- `/bringHorde <target> <speed>`
+<br/>Sends the horde to the specified player
+- `/clearHorde <target>`
+<br/>Clears the horde spawned for the specified player
+
+## Example horde
+```lua
+    ['example'] = {
+        entities = {
+            -- ['type'] = qty
+            ['example1'] = 6,
+            ['militia'] = 3,
+        }
+    },
+```

@@ -1,0 +1,147 @@
+---
+title: "Infected.lua"
+icon: "user"
+---
+
+<Info>
+ The file is still named infected.lua due to the scripts' initial name. However the correct name would be entities.lua.
+</Info>
+
+## Configuration parameters
+
+- displayName: Display name shown in the PROMPT LOCK ON action (holding right mouse button).
+- model: Entity ped model
+- group: Group tag for the entity check (groups page)[./scripts/entities/configuration/groups] for more info
+
+## Example entity
+Let's say we wanted to create a new entity. This entity is a militia man, it will attack infects and attack only hostile players.
+
+Let's edit the entity types config together:
+```lua
+Config.EntityTypes = {
+    -- other entities...
+        ['militia'] = {
+        displayName = "Militia",
+        model = `s_m_m_army_01`,
+        group = `militia`,
+        scale = 1.0,
+        outfits = nil, 
+        maxHealth = 250,
+        walkStyle = nil,
+        accuracy = 90,
+        seeingRange = 30.0,
+        hearingRange = 30.0,
+        combatAbility = 2,
+        combatMovement = 2,
+        combatAttributes = {
+            [58] = true,
+            [46] = true,
+            [50] = true,
+            [125] = true,
+            [54] = true,
+            [116] = true,
+            [91] = true,
+            [114] = true,
+        },
+        -- weapon equipment
+        equipment = {
+            ['weapon_rifle_springfield'] = 50
+        },
+        lootProbability = 0.2,
+        lootTable = {
+            ['ammorifleexpress'] = {
+                itemId = 'ammorifleexpress',
+                displayName = 'Ammo Rifle Express',
+                minQuantity = 5,
+                maxQuantity = 10,
+                probability = 1.0,
+                metadata = nil,
+            },
+        }
+    },
+}
+```
+
+## Entity config parameters
+
+Let's talk about each of these parameters:
+### displayName
+Type: string  
+Display name for the entity, it will be shown in prompts, etc.
+
+### model
+Type: hash  
+Model hash, a list can be found [here](https://github.com/femga/rdr3_discoveries/blob/master/peds/peds_list.lua).
+
+### group
+Type: hash  
+Group hash, refer to the groups guide for more info.
+
+### scale
+Type: number  
+Ped scale for size.
+
+### outfits
+Type: table  
+If set to `nil`, it will choose a random ped outfit across all the vanilla ones. Otherwise, you can pass a list with the outfit "numbers" you want to allow.
+
+### maxHealth
+Type: number  
+Max health that the entity will have.
+
+### walkStyle
+Type: string  
+The entity walk style. If set to `nil`, the default one will be preserved. You can find a list [here](https://github.com/femga/rdr3_discoveries/blob/110a7b14ffaf3eac038322bb229b90c299be4975/discoveredNatives/discovered_natives_by_community#L41).
+
+### accuracy
+Type: number  
+Ped's shooting accuracy from 0-100.
+
+### seeingRange
+Type: number  
+Ped's sight detection range.
+
+### hearingRange
+Type: number  
+Ped's hearing detection range.
+
+### combatAbility
+Type: number  
+Ped's combat ability from 0 to 2.
+
+### combatMovement
+Type: number  
+Ped's combat movement type from 0 to 3.
+- 0 -> Stationary (Will just stand in place)
+- 1 -> Defensive (Will try to find cover and very likely to blind fire)
+- 2 -> Offensive (Will attempt to charge at enemy but take cover as well)
+- 3 -> Suicidal Offensive (Will try to flank enemy in a suicidal attack)
+
+### combatAttributes
+Type: table
+Ped's combat attributes, in the key part [xxx] there will be the combat attribute we want to enable or disable (true/false). You can find a list (here)[https://github.com/femga/rdr3_discoveries/tree/master/AI/COMBAT_ATTRIBUTES]
+
+### equipment
+Type: table
+Ped's equipment, these are the weapons the ped will be carrying, and the ammo that they have.
+Example: `['weapon'] = ammoQuantity`
+
+### lootProbability
+Type: number
+Ped's probability to spawn loot when killed
+
+### lootTable
+Type: table
+Ped's loot table, it's defined in the following format:
+```lua
+['exampleItem'] = {
+    itemId = 'exampleItem',
+    -- used for displaying which item you got in the notifications
+    displayName = 'Example Item', 
+    minQuantity = 1,
+    maxQuantity = 5,
+    probability = 1.0,
+    metadata = nil
+}
+```
+If the item will spawn then a random quantity will be chosen between the minQuantity and maxQuantity range.  Metadata can be used for specific frameworks allowing metadata suppport.

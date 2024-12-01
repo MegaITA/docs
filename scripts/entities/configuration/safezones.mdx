@@ -1,0 +1,19 @@
+---
+title: "Safezones.lua"
+icon: "shield"
+---
+
+## Safezones
+Safezones are useful zones that will be excluded from the spawning system inside mega_entities.
+
+### Safezone definition
+```lua
+['Example_Safezone'] = {
+    coords = vector3(-813.63, -1319.39, 43.78),
+    radius = 150.0,
+    -- allow replacement system to work there
+    allowReplacement = false,
+    -- allow worldgrid system to work there
+    allowWorldgrid = false
+}
+```
