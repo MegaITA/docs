@@ -7,6 +7,37 @@ icon: "user"
  The file is still named infected.lua due to the scripts' initial name. However the correct name would be entities.lua.
 </Info>
 
+## StateBags
+
+Entities spawned by mega_entities will have some StateBag values associated to detect which kind of entity type they are and which chunk / zone they belong to depending on the spawn strategy that spawned them.
+
+So far the values that you can find inside an entity spawned by mega entities are those:
+```lua
+entityType: string -- represents the entity type
+
+-- If spawned with zone strategy
+zoneID?: string -- (optional) refers to the zoneID in which they spawned
+
+-- If spawned with worldgrid strategy
+chunkRow?: number -- (optional) refers to the chunkRow in which they spawned
+chunkCol?: number -- (optional) refers to the chunkCol in which they spawned
+```
+
+To fetch those values you can do the following:
+
+Client-Side:
+```lua
+Entity(entityID).state['entityType'] -- for example: "militia"
+```
+
+Server-Side:
+```lua
+-- Safe way to get entityID since netID never changes
+-- but entityID could change for the same entity during time
+local entityID = NetworkGetEntityFromNetworkId(netID)
+Entity(entityID).state['entityType']
+```
+
 ## Configuration parameters
 
 - displayName: Display name shown in the PROMPT LOCK ON action (holding right mouse button).
