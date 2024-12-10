@@ -2,12 +2,15 @@
 title: "Getting Started"
 ---
 
-<Warning>This section is for advanced users. In this guide I will **not** teach you how to code. The guide contains all the necessary information for an experienced user to start implementing custom diseases within the Doctorjob Script.</Warning>
-
+<Warning>
+  This section is for advanced users. In this guide I will **not** teach you how
+  to code. The guide contains all the necessary information for an experienced
+  user to start implementing custom diseases within the Doctorjob Script.
+</Warning>
 
 ## Understanding the code structure
 
-Since a disease is composed by many components we will call it "disease module". 
+Since a disease is composed by many components we will call it "disease module".
 
 A disease module is composed by:
 
@@ -19,12 +22,8 @@ In order to create your own disease you'll have to add a new object that will co
 
 Imagine it as a place where you can store all the options you need to make the disease work and configurable, this information will be loaded by the module once the script will start and you'll be able to access it from the module itself. You find all the information about its structure and how to compose it in [its dedicated wiki page](https://docs.megaworks.dev/en/MegaDoctorjob/Configuration/Diseases).
 
-
 ### A disease "script"
 
-The main piece of code that will make everything actually work is the disease file which will be located in the `diseases` folder. It is responsible of handling the full disease "lifecycle": from its initialization to issuing symptoms on the player. 
+The main piece of code that will make everything actually work is the disease file which will be located in the `diseases` folder. It is responsible of handling the full disease "lifecycle": from its initialization to issuing symptoms on the player.
 
 You can see it as an extension of the `Disease.lua` class, since it will be built on top of its definition.
-
-### Disease class definition
-
